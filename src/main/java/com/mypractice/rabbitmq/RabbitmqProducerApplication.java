@@ -9,12 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.mypractice.rabbitmq.dto.User;
-import com.mypractice.rabbitmq.producer.UserProducer;
+import com.mypractice.rabbitmq.producer.FanoutProducer;
 
 @SpringBootApplication
 public class RabbitmqProducerApplication implements CommandLineRunner {
 	@Autowired
-	UserProducer userProducer;
+	FanoutProducer fanoutProducer;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RabbitmqProducerApplication.class, args);
@@ -30,7 +30,7 @@ public class RabbitmqProducerApplication implements CommandLineRunner {
 		for (int i = 0; i < 5; i++) {
 			User user = User.builder().userId(UUID.randomUUID().toString()).dob(LocalDate.now()).firstName("Nasruddin")
 					.lastName("khan").emailId("nasruddinkhan44gmail.com").phoneNo("9594757518").build();
-			userProducer.sendMessages(user);
+			fanoutProducer.sendMessages(user);
 		}
 	}
 
